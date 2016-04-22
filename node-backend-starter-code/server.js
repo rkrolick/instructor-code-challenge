@@ -1,21 +1,34 @@
 var express = require('express');
-var app = express();
 var fs = require('fs');
 var path = require('path');
 var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
-var request = require('request');
+var request = require('request'); //used to handle OMDB api requests.
+
+var app = express();
 
 app.use('/', express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.set("view engine", "hbs");
+app.engine(".hbs", hbs({
+  extname:        ".hbs",
+  partialsDir:    "views/",
+  layoutsDir:     "views/",
+  defaultLayout:  "layout-main"
+}));
 
-app.get('/s/', function(req, res){
-  var url = "http://www.omdbapi.com/?s="+req.query.q+"&r=json";
+app.get("/", function(req, res){
+  res.render("search");
+});
+
+//
+app.post('/s/', function(req, res){
+  var url = "http://www.omdbapi.com/?s="+req.body.search+"&r=json";
   var results;
   request.get(url, function(err, response, body){
     results = JSON.parse(body);
-    res.send(results);
+    res.render("results",{results:results});
   });
 });
 
