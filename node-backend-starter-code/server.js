@@ -3,10 +3,21 @@ var app = express();
 var fs = require('fs');
 var path = require('path');
 var bodyParser = require('body-parser');
+var hbs = require('express-handlebars');
+var request = require('request');
 
- app.use('/', express.static(path.join(__dirname, 'public')));
- app.use(bodyParser.urlencoded({ extended: false }));
- app.use(bodyParser.json());
+app.use('/', express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.get('/search', function(req, res){
+  var url = "http://www.omdbapi.com/?s=star+wars&r=json";
+  var test;
+  request.get(url, function(err, response, body){
+    test = JSON.parse(body);
+    res.send(test);
+  });
+});
 
 app.get('/favorites', function(req, res){
   var data = fs.readFileSync('./data.json');
