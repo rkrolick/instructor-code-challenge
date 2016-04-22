@@ -1,4 +1,5 @@
 <ul>
+  <!-- We use #each to iterate through our array of results similar to forEach in vanilla JS -->
 {{#each results.Search as |movie|}}
   <li><a href="/s/{{movie.imdbID}}">{{movie.Title}}</a></li>
 {{/each}}
