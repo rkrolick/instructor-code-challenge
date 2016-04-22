@@ -2,8 +2,8 @@ var express = require('express');
 var fs = require('fs');
 var path = require('path');
 var bodyParser = require('body-parser');
-var hbs = require('express-handlebars');
-var request = require('request'); //used to handle OMDB api requests.
+var hbs = require('express-handlebars'); // Used to display data in our front-end.
+var request = require('request'); // Used to handle OMDB api requests.
 
 var app = express();
 
