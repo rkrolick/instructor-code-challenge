@@ -7,6 +7,7 @@ var request = require('request'); // Used to handle OMDB api requests.
 
 var app = express();
 
+app.set("port", process.env.PORT || 3000);
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true })); // Allows express to handle our POST requests.
 app.use(bodyParser.json()); // Allows express to handle json data from our api request correctly.
@@ -66,6 +67,6 @@ app.post('/favorites', function(req, res){
 });
 
 // Sets our server to listen for requests.
-app.listen(3000, function(){
+app.listen(app.get("port"), function(){
   console.log("Listening on port 3000");
 });
