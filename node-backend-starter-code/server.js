@@ -43,8 +43,8 @@ app.get('/s/:imdbID', function(req, res){
 
 app.get('/favorites', function(req, res){
   var data = fs.readFileSync('./data.json');
-  res.setHeader('Content-Type', 'application/json');
-  res.send(data);
+  data = JSON.parse(data);
+  res.render("favorites", {favorites:data});
 });
 
 app.post('/favorites', function(req, res){
@@ -53,7 +53,6 @@ app.post('/favorites', function(req, res){
     return
   }
   var data = JSON.parse(fs.readFileSync('./data.json'));
-  console.log(req.body.title);
   data.push({title: req.body.title,imdbID: req.body.imdbID});
   fs.writeFile('./data.json', JSON.stringify(data),function(){});// Requires a function as third argument.  Error handling can be put here.
   res.redirect("/favorites");

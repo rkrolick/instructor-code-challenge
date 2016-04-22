@@ -1,0 +1,6 @@
+<h2>Your favorite movies</h2>
+<ul>
+{{#each favorites as |favorite|}}
+  <li><a href="/s/{{favorite.imdbID}}">{{favorite.title}}</a></li>
+{{/each}}
+</ul>
