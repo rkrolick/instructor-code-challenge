@@ -46,19 +46,18 @@ app.get('/favorites', function(req, res){
   res.setHeader('Content-Type', 'application/json');
   res.send(data);
 });
-//
-// app.get('favorites', function(req, res){
-//   if(!req.body.name || !req.body.oid){
-//     res.send("Error");
-//     return
-//   }
-//
-//   var data = JSON.parse(fs.readFileSync('./data.json'));
-//   data.push(req.body);
-//   fs.writeFile('./data.json', JSON.stringify(data));
-//   res.setHeader('Content-Type', 'application/json');
-//   res.send(data);
-// });
+
+app.post('/favorites', function(req, res){
+  if(!req.body.title || !req.body.imdbID){
+    res.send("Error");
+    return
+  }
+  var data = JSON.parse(fs.readFileSync('./data.json'));
+  console.log(req.body.title);
+  data.push({title: req.body.title,imdbID: req.body.imdbID});
+  fs.writeFile('./data.json', JSON.stringify(data),function(){});// Requires a function as third argument.  Error handling can be put here.
+  res.redirect("/favorites");
+});
 
 app.listen(3000, function(){
   console.log("Listening on port 3000");

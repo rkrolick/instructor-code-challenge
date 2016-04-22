@@ -6,6 +6,7 @@
 <p>Rating: {{info.imdbRating}}</p>
 <form action="/favorites" method="post">
   <input type="text" name="imdbID" value={{info.imdbID}} hidden/>
-  <input type="text" name="title" value={{info.Title}} hidden/>
+  <!-- We need to place our reference to info.Title in quotes, or else the post request will terminate our title string at the first white space character -->
+  <input type="text" name="title" value="{{info.Title}}" hidden/>
   <button type="Submit">Favorite</button>
 </form>
