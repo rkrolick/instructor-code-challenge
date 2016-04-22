@@ -32,6 +32,15 @@ app.post('/s/', function(req, res){
   });
 });
 
+app.get('/s/:imdbID', function(req, res){
+  var url = "http://www.omdbapi.com/?i="+req.params.imdbID+"&r=json";
+  var info;
+  request.get(url, function(err, response, body){
+    info = JSON.parse(body);
+    res.render("show",{info:info});
+  });
+});
+
 app.get('/favorites', function(req, res){
   var data = fs.readFileSync('./data.json');
   res.setHeader('Content-Type', 'application/json');

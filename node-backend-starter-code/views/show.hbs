@@ -1,0 +1,11 @@
+<h2>{{info.Title}}</h2>
+<p>Year: {{info.Year}}</p>
+<p>Rated: {{info.Rated}}</p>
+<p>Runtime: {{info.Runtime}}</p>
+<p>Plot: {{info.Plot}}</p>
+<p>Rating: {{info.imdbRating}}</p>
+<form action="/favorites" method="post">
+  <input type="text" name="imdbID" value={{info.imdbID}} hidden/>
+  <input type="text" name="title" value={{info.Title}} hidden/>
+  <button type="Submit">Favorite</button>
+</form>
