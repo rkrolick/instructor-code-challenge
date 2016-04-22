@@ -10,12 +10,12 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get('/search', function(req, res){
-  var url = "http://www.omdbapi.com/?s=star+wars&r=json";
-  var test;
+app.get('/s/', function(req, res){
+  var url = "http://www.omdbapi.com/?s="+req.query.q+"&r=json";
+  var results;
   request.get(url, function(err, response, body){
-    test = JSON.parse(body);
-    res.send(test);
+    results = JSON.parse(body);
+    res.send(results);
   });
 });
 
